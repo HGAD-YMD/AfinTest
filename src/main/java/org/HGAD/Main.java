@@ -47,6 +47,7 @@ public class Main
                 System.out.println("3.-Mi Whishlist");
                 if(EsAdmin == true) {
                     System.out.println("4.- Registro de discos");
+                    System.out.println("5.- Gestion de usuarios");
                 }
             }
             System.out.println("Seleccione una opción: ");
@@ -96,6 +97,10 @@ public class Main
                         case 4:
                             Operacion = true;
                             break;
+                        case 5:
+                           gestionarUsuariosAdmin();
+                           Operacion = true;
+                           break;
                     }
                 }
             }
@@ -572,7 +577,19 @@ public class Main
 
         System.out.println("¡Disco agregado a tu wishlist con éxito!");
     }
-
+   public static void gestionarUsuariosAdmin() {
+        System.out.println("--- GESTIÓN DE USUARIOS REGISTRADOS ---");
+        System.out.printf("%-20s | %-25s | %-15s\n", "Nombre", "Correo", "Rol");
+        System.out.println("---------------------------------------------------------------");
+        for (int i = 0; i < contadorUsuarios; i++) {
+            String rolStr = ListaUsuarios[i][2].equals("2") ? "Administrador" : "Cliente";
+            System.out.printf("%-20s | %-25s | %-15s\n",
+                    ListaUsuarios[i][0],
+                    ListaUsuarios[i][1],
+                    rolStr);
+        }
+        System.out.println("---------------------------------------------------------------");
+    }
 }
 
 
