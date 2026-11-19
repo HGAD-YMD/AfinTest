@@ -118,14 +118,31 @@ public class Main
         System.out.println("Ingrese su nombre");
         String nombre = scanner.nextLine();
 
-        System.out.println("Ingrese su correo");
-        String correo = scanner.nextLine();
-        while (!correo.matches("\\S+@\\S+\\.\\S+"))
+       System.out.println("Ingrese su correo");
+        String correo = scanner.nextLine().toLowerCase();//convierte a minúsculas los datos registrados
+        //.endsWith() sirve en Java para comprobar si una cadena de texto (String) termina exactamente con los caracteres que le indiques
+        /*
+           .matches() sirve en Java para revisar si una cadena de texto cumple exactamente con un molde o patrón (llamado expresión regular).
+           Devuelve true si todo el texto encaja con el patrón y false si falla en algo.
+
+           Si tomas el formato estándar de un correo (usuario@dominio.extensión), cada bloque de esa expresión regular traduce una parte del texto de izquierda a derecha:
+            • \\S+ (El usuario): La \\S mayúscula significa "cualquier carácter que NO sea un espacio en blanco" y el signo + significa "uno o más". Esto obliga a que haya texto antes de la arroba.
+            • @ (La arroba): Exige que aparezca literalmente el símbolo @ separando las dos partes.
+            •\\S+ (El dominio): Vuelve a exigir uno o más caracteres sin espacios después de la arroba (por ejemplo, gmail o universidad.edu).
+            • \\. (El punto): El punto en expresiones regulares es un comodín especial, así que se le ponen dos diagonales invertidas (\\.) para decirle a Java que busque un punto real y literal.
+            • \\S+ (La extensión): Exige uno o más caracteres sin espacios después del punto final (por ejemplo, com o mx).
+
+         */
+        
+        while (!correo.matches("\\S+@\\S+\\.\\S+" ) || !correo.endsWith("@gmail.com") || !correo.endsWith("@hotmail.com") ||
+                !correo.endsWith("@outlook.com") || !correo.endsWith("@yahoo.com"))
         {
-            System.out.println("Error: Formato inválido (ejemplo: usuario@gmail.com).");
+            System.out.println("Error: Formato inválido, el sistema no acepta este formato, siga el siguiente formato ( ejemplo: usuario@gmail.com).");
+            System.out.println("Error: Solo se permiten correos @gmail.com, @hotmail.com , @outlook.com. y  @yahoo.com");
             System.out.println("Ingrese su correo nuevamente:");
             correo= scanner.nextLine().trim();
         }
+       
         // Valida si el correo ya está registrado previamente
         for (int i = 0; i < contadorUsuarios; i++) {
             if (ListaUsuarios[i][1].equals(correo)) {
