@@ -20,9 +20,9 @@ public class Main
     static int contadorDiscos = 0;
     static String Nombre = " ";
     static boolean InicioSesion = false;
-    static String[][] usuarios = new String[100][3];
+    static String[][] usuarios = new String[1000][3];
     static int totalUsuarios = 0;
-    static String[][] wishlist = new String[100][3];
+    static String[][] wishlist = new String[1000][3];
     static int totalDeseos = 0;
     static int usuarioActual = -1;
 
