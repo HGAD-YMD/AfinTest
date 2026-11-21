@@ -125,9 +125,24 @@ public class Main
 
         System.out.println("Ingrese su correo");
         String correo = scanner.nextLine();
-        while (!correo.matches("\\S+@\\S+\\.\\S+"))
+      /*
+      • ^ : Marca el inicio del texto. Asegura que no haya espacios ni caracteres raros antes del usuario.
+      • [a-zA-Z0-9._-] : Es el grupo de caracteres permitidos para el nombre de usuario:
+	    • a-z y A-Z: Letras minúsculas y mayúsculas (sin ñ ni tildes).
+	    • 0-9: Números del 0 al 9.
+	    • ._-: Punto, guion bajo y guion medio.
+      • + : Significa "uno o más". Obliga a que el usuario escriba al menos un carácter válido antes del arroba (no permite dejarlo vacío).
+      • @ : Exige el símbolo de arroba literal en esa posición exacta.
+      • (...) : Agrupa las opciones válidas para el dominio.
+      • | : Funciona como un "O" lógico (acepta gmail o hotmail o outlook o yahoo).
+      • \\. : Representa un punto literal (.). En las expresiones regulares, un punto solo significa "cualquier carácter"; las barras invertidas (\\) le quitan ese poder especial en Java para que busque estrictamente un punto.
+      • $ : Marca el final del texto. Impide que se escriba algo extra después del .com (como .com.mx o espacios).
+      •.matches(), evalua que la cadena de texto ingresada cumpla con las características ingresadas en los paraentesis 
+      */
+       while (!correo.matches("^[a-zA-Z0-9._-]+@(gmail\\.com|hotmail\\.com|outlook\\.com|yahoo\\.com)$" ) )
         {
-            System.out.println("Error: Formato inválido (ejemplo: usuario@gmail.com).");
+            System.out.println("Error: Formato inválido, el sistema no acepta este formato, siga el siguiente formato ( ejemplo: usuario@gmail.com).");
+            System.out.println("Error: Solo se permiten correos @gmail.com, @hotmail.com , @outlook.com. y  @yahoo.com");
             System.out.println("Ingrese su correo nuevamente:");
             correo= scanner.nextLine().trim();
         }
