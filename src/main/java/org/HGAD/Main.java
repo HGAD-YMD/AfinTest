@@ -95,6 +95,7 @@ public class Main
                 if(EsAdmin == true) {
                     switch (opcion) {
                         case 4:
+                            registrodiscos();
                             Operacion = true;
                             break;
                         case 5:
