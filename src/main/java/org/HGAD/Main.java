@@ -598,7 +598,12 @@ public class Main
         System.out.printf("%-20s | %-25s | %-15s\n", "Nombre", "Correo", "Rol");
         System.out.println("---------------------------------------------------------------");
         for (int i = 0; i < contadorUsuarios; i++) {
-            String rolStr = ListaUsuarios[i][2].equals("2") ? "Administrador" : "Cliente";
+            String rolStr;
+            if (ListaUsuarios[i][2].equals("2")) {
+                rolStr = "Administrador";
+            } else {
+                rolStr = "Cliente";
+            }
             System.out.printf("%-20s | %-25s | %-15s\n",
                     ListaUsuarios[i][0],
                     ListaUsuarios[i][1],
