@@ -20,8 +20,6 @@ public class Main
     static int contadorDiscos = 0;
     static String Nombre = " ";
     static boolean InicioSesion = false;
-    static String[][] usuarios = new String[1000][3];
-    static int totalUsuarios = 0;
     static String[][] wishlist = new String[1000][3];
     static int totalDeseos = 0;
     static int usuarioActual = -1;
@@ -44,10 +42,12 @@ public class Main
             if(InicioSesion == true) {
                 System.out.println("1. Cerrar Session.");
                 System.out.println("2.-Consulta de discos ");
+                if(EsAdmin == false) {
                 System.out.println("3.-Mi Whishlist");
+                }
                 if(EsAdmin == true) {
-                    System.out.println("4.- Registro de discos");
-                    System.out.println("5.- Gestion de usuarios");
+                    System.out.println("3.- Registro de discos");
+                    System.out.println("4.- Gestion de usuarios");
                 }
             }
             System.out.println("Seleccione una opción: ");
@@ -88,20 +88,18 @@ public class Main
             if (InicioSesion == true) {
                 switch (opcion) {
                     case 3:
-                        menuWishlist();
+                        if(EsAdmin == false){
+                        menuWishlist();}
+                        else{registrodiscos();}
                         Operacion = true;
                         break;
                 }
                 if(EsAdmin == true) {
                     switch (opcion) {
                         case 4:
-                            registrodiscos();
+                            gestionarUsuariosAdmin();
                             Operacion = true;
                             break;
-                        case 5:
-                           gestionarUsuariosAdmin();
-                           Operacion = true;
-                           break;
                     }
                 }
             }
@@ -143,7 +141,7 @@ public class Main
        while (!correo.matches("^[a-zA-Z0-9._-]+@(gmail\\.com|hotmail\\.com|outlook\\.com|yahoo\\.com)$" ) )
         {
             System.out.println("Error: Formato inválido, el sistema no acepta este formato, siga el siguiente formato ( ejemplo: usuario@gmail.com).");
-            System.out.println("Error: Solo se permiten correos @gmail.com, @hotmail.com , @outlook.com. y  @yahoo.com");
+            System.out.println("Error: Solo se permiten correos que terminen en @gmail.com, @hotmail.com , @outlook.com. y  @yahoo.com");
             System.out.println("Ingrese su correo nuevamente:");
             correo= scanner.nextLine().trim();
         }
@@ -369,12 +367,17 @@ public class Main
                 do
                 {
                     System.out.println("1.-Título del disco:");
+                    boolean existente = false;
                     datosdisco[contadorDiscos][0] = scanner.nextLine();
                     for (int i = 0; i < contadorDiscos; i++) {
                         if (datosdisco[i][0].equalsIgnoreCase(datosdisco[contadorDiscos][0])) {
                             System.out.println("Disco con título en existencia");
-                            return;
+                            existente = true;
+                            break;
                         }
+                    }
+                    if (existente == true){
+                        continue;
                     }
                     System.out.println("2.-Artista:");
                     datosdisco[contadorDiscos][1] = scanner.nextLine();
@@ -386,9 +389,6 @@ public class Main
                     datosdisco[contadorDiscos][4] = scanner.nextLine().trim();
 
                     while (!Condicion) {
-                        String entrada=datosdisco[contadorDiscos][4];
-                        if(entrada.matches("\\d+"))
-                        {
                             try {
                                 numero = Integer.parseInt(datosdisco[contadorDiscos][4]);
                                 if (numero > 0) {
@@ -401,12 +401,6 @@ public class Main
                                 System.out.println("Error, inserta un numero valido");
                                 datosdisco[contadorDiscos][4] = scanner.nextLine();
                             }
-                        }
-                        else
-                        {
-                            System.out.println("Error, inserta un año válido (solo números enteros sin símbolos ni decimales):");
-                            datosdisco[contadorDiscos][4] = scanner.nextLine().trim();
-                        }
                     }
                     Condicion = false;
                     System.out.println("6.-Estado del Disco (Mint, Near Mint, VG+, VG, G):");
@@ -463,6 +457,7 @@ public class Main
                             datosdisco[contadorDiscos][8] = scanner.nextLine();
                         }
                     }
+                    if (existente == true){contadorDiscos--;}
                     contadorDiscos++;
                     System.out.println("¡Disco registrado con éxito!");
                     System.out.println("¿Desea registrar otro disco?");
@@ -495,7 +490,7 @@ public class Main
         }
     }
     public static void menuWishlist() {
-        int opcion = 0;
+        int opcion = -1;
         do {
             System.out.println("\n--- MI WISHLIST DE VINILOS ---");
             System.out.println("1. Ver mi wishlist");
