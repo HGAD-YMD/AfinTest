@@ -351,15 +351,15 @@ public class Main
     }
 
     //MODULO DE REGISTRO DE DISCOS
-    public static void registrodiscos() {
-        int opcion;
+  public static void registrodiscos() {
+        int opcion=2;
         int numero;
         double numero2;
         boolean Condicion = false;
         if (EsAdmin) {
             if (contadorDiscos >= datosdisco.length) {
                 System.out.println("Error: La base de datos de discos está llena. No se pueden registrar más álbumes.");
-
+                return;
             } else
             {
                 System.out.println("======Modulo de registro de discos======");
@@ -385,26 +385,24 @@ public class Main
                     datosdisco[contadorDiscos][2] = scanner.nextLine();
                     System.out.println("4.-Subgénero:");
                     datosdisco[contadorDiscos][3] = scanner.nextLine();
+                    Condicion=false;
                     System.out.println("5.-Año de publicación:");
-                    datosdisco[contadorDiscos][4] = scanner.nextLine().trim();
-
                     while (!Condicion) {
+                        datosdisco[contadorDiscos][4] = scanner.nextLine().trim();
                             try {
                                 numero = Integer.parseInt(datosdisco[contadorDiscos][4]);
                                 if (numero > 0) {
                                     Condicion = true;
                                 } else {
                                     System.out.println("Error, el año debe ser mayor a 0. Intente de nuevo:");
-                                    datosdisco[contadorDiscos][4] = scanner.nextLine().trim();
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println("Error, inserta un numero valido");
-                                datosdisco[contadorDiscos][4] = scanner.nextLine();
                             }
                     }
                     Condicion = false;
                     System.out.println("6.-Estado del Disco (Mint, Near Mint, VG+, VG, G):");
-                    datosdisco[contadorDiscos][5] = scanner.nextLine();
+                    datosdisco[contadorDiscos][5] = scanner.nextLine().trim();
                     while (!datosdisco[contadorDiscos][5].equalsIgnoreCase("Mint") &&
                             !datosdisco[contadorDiscos][5].equalsIgnoreCase("Near Mint") &&
                             !datosdisco[contadorDiscos][5].equalsIgnoreCase("VG+") &&
@@ -413,26 +411,26 @@ public class Main
                         System.out.println("Error, ingrese una opción valida. Ejemplo: Mint, Near Mint, VG+, VG, G" );
                         datosdisco[contadorDiscos][5] = scanner.nextLine();
                     }
+                    Condicion=false;
                     System.out.println("7.-Precio ($):");
-                    datosdisco[contadorDiscos][6] = scanner.nextLine();
+
                     while (!Condicion ) {
+                        datosdisco[contadorDiscos][6] = scanner.nextLine().trim();
                         try {
                             numero2 = Double.parseDouble(datosdisco[contadorDiscos][6]);
                             if (numero2 > 0) {
                                 Condicion = true;
                             } else {
                                 System.out.println("Error, el precio debe ser mayor a 0. Intente de nuevo");
-                                datosdisco[contadorDiscos][6] = scanner.nextLine();
 
                             }
                         } catch (NumberFormatException e) {
                             System.out.println("Error, inserta un numero valido");
-                            datosdisco[contadorDiscos][6] = scanner.nextLine();
                         }
                     }
                     Condicion = false;
                     System.out.println("8.-Formato Físico");
-                    datosdisco[contadorDiscos][7] = scanner.nextLine();
+                    datosdisco[contadorDiscos][7] = scanner.nextLine().trim();
                     while (!datosdisco[contadorDiscos][7].equalsIgnoreCase("Vinilo") &&
                             !datosdisco[contadorDiscos][7].equalsIgnoreCase("CD") &&
                             !datosdisco[contadorDiscos][7].equalsIgnoreCase("Casete") )
@@ -440,39 +438,36 @@ public class Main
                         System.out.println("Error, ingrese una opción valida. Ejemplo: Vinilo, CD, Casete" );
                         datosdisco[contadorDiscos][7] = scanner.nextLine();
                     }
+                    Condicion=false;
                     System.out.println("9.-Cantidad en Stock");
-                    datosdisco[contadorDiscos][8] = scanner.nextLine();
                     while (!Condicion) {
+                        datosdisco[contadorDiscos][8] = scanner.nextLine().trim();
                         try {
                             numero = Integer.parseInt(datosdisco[contadorDiscos][8]);
                             if (numero > 0) {
                                 Condicion = true;
                             } else {
                                 System.out.println("Error, la cantidad en stock debe ser mayor a 0. Intente de nuevo");
-                                Integer.parseInt(datosdisco[contadorDiscos][8]);
-                                datosdisco[contadorDiscos][8] = scanner.nextLine();
                             }
                         } catch (NumberFormatException e) {
                             System.out.println("Error, inserta un numero valido");
-                            datosdisco[contadorDiscos][8] = scanner.nextLine();
                         }
                     }
                     if (existente == true){contadorDiscos--;}
                     contadorDiscos++;
                     System.out.println("¡Disco registrado con éxito!");
-                    System.out.println("¿Desea registrar otro disco?");
-                    System.out.println("1.-Si");
-                    System.out.println("2.-No");
                     opcion=0;
                     while (opcion!=1 && opcion!=2)
-                        {
+                    {
+                        System.out.println("¿Desea registrar otro disco?");
+                        System.out.println("1.-Si");
+                        System.out.println("2.-No");
                         if (scanner.hasNextInt())
                         {
                             opcion = scanner.nextInt();
                             scanner.nextLine();
-                            if (opcion != 1 && opcion != 2)
-                            {
-                                System.out.println("Error. Ingrese un número entre el 1 y el 2:");
+                            if (opcion != 1 && opcion != 2) {
+                                System.out.println("Error: Ingrese un número entre el 1 y el 2.");
                             }
                         }
                         else
@@ -485,10 +480,11 @@ public class Main
                     Devuelve true si el dato es un número entero válido y false si el usuario escribió letras o símbolo.
                      */
                 }
-                while (opcion!=2);
+                while (opcion==1);
             }
         }
     }
+    
     public static void menuWishlist() {
         int opcion = -1;
         do {
