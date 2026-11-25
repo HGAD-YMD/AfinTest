@@ -34,16 +34,16 @@ public class Main
             System.out.println("===========================");
             System.out.println("      DISCOS SALVAJES");
             System.out.println("===========================");
-            System.out.println("0. Salir");
+            System.out.println("0.- Salir");
             if (InicioSesion == false) {
-                System.out.println("1. Registrarse");
-                System.out.println("2. Iniciar Sesión");
+                System.out.println("1.- Registrarse");
+                System.out.println("2.- Iniciar Sesión");
             }
             if(InicioSesion == true) {
-                System.out.println("1. Cerrar Session.");
-                System.out.println("2.-Consulta de discos ");
+                System.out.println("1.- Cerrar Session.");
+                System.out.println("2.- Consulta de discos ");
                 if(EsAdmin == false) {
-                System.out.println("3.-Mi Whishlist");
+                System.out.println("3.- Mi Whishlist");
                 }
                 if(EsAdmin == true) {
                     System.out.println("3.- Registro de discos");
